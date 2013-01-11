@@ -281,6 +281,7 @@ void CPTranDlg::OnOK()
 	while(m_stat!=SERVICE_OFF)
 		Sleep(100);
 	delete m_servicePara;//free mem
+	Shell_NotifyIcon(NIM_DELETE,&NotifyIcon);
 	CDialogEx::OnOK();
 }
 
@@ -296,6 +297,7 @@ void CPTranDlg::OnCancel()
 	while(m_stat!=SERVICE_OFF)
 		Sleep(100);
 	delete m_servicePara;//free mem
+	Shell_NotifyIcon(NIM_DELETE,&NotifyIcon);
 	CDialogEx::OnCancel();
 }
 

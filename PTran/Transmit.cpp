@@ -194,6 +194,10 @@ unsigned __stdcall ServiceMain(LPVOID data)
 			st->GetDlgItem(IDC_STATIC_ST)->SetWindowText(_T("连接成功，服务运行中..."));
 			st->m_ConCountStr.Format(_T("%d"),++st->m_ConCount);
 			st->GetDlgItem(IDC_STATIC_CNT)->SetWindowText(st->m_ConCountStr);
+			CString str("PTran:");
+			str+=st->m_ConCountStr;
+			lstrcpy(st->NotifyIcon.szTip,str);
+			Shell_NotifyIcon(NIM_MODIFY,&st->NotifyIcon);
 			HANDLE hThread=NULL;
 			unsigned dwThreadID;
 			transPara *para=new transPara();
@@ -215,6 +219,10 @@ unsigned __stdcall ServiceMain(LPVOID data)
 	st->GetDlgItem(IDC_STATIC_IPIN)->SetWindowText(_T(""));
 	st->m_ConCountStr.Format(_T("%d"),st->m_ConCount);
 	st->GetDlgItem(IDC_STATIC_CNT)->SetWindowText(st->m_ConCountStr);
+	CString str("PTran:");
+	str+=st->m_ConCountStr;
+	lstrcpy(st->NotifyIcon.szTip,str);
+	Shell_NotifyIcon(NIM_MODIFY,&st->NotifyIcon);
 
 	WSACleanup();	
 
@@ -421,6 +429,10 @@ unsigned __stdcall TransmitData(LPVOID data)
 	if(st->m_stat!=SERVICE_OFF){
 		st->m_ConCountStr.Format(_T("%d"),--st->m_ConCount);
 		st->GetDlgItem(IDC_STATIC_CNT)->SetWindowText(st->m_ConCountStr);
+		CString str("PTran:");
+		str+=st->m_ConCountStr;
+		lstrcpy(st->NotifyIcon.szTip,str);
+		Shell_NotifyIcon(NIM_MODIFY,&st->NotifyIcon);
 		if(st->m_ConCount==0){
 			st->m_stat=SERVICE_WAIT;
 			st->GetDlgItem(IDC_STATIC_ST)->SetWindowText(_T("等待连接，服务运行中..."));
